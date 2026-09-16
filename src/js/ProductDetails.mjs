@@ -19,6 +19,11 @@ export default class ProductDetails {
             .addEventListener('click', this.addProductToCart.bind(this));
     }
 
+    // ✅ New method so product.js can access the product object
+    getProduct() {
+        return this.product;
+    }
+
     addProductToCart() {
         // Get existing cart or default to empty array
         let cartItems = getLocalStorage('so-cart') || [];
@@ -33,7 +38,7 @@ export default class ProductDetails {
     }
 
     renderProductDetails() {
-        // Fill placeholders in index.html
+        // Fill placeholders in product page
         document.querySelector('.productBrand').textContent = this.product.Brand;
         document.querySelector('.productName').textContent = this.product.Name;
         document.querySelector('.productImage').src = this.product.Image;
