@@ -1,22 +1,24 @@
 import { getLocalStorage } from './utils.mjs';
 
 function renderCartContents() {
-  // Get cart items from local storage, default to empty array if null
   const cartItems = getLocalStorage('so-cart') || [];
 
-  // Handle empty cart case
   if (cartItems.length === 0) {
     document.querySelector('.product-list').innerHTML = "<p>Your cart is empty</p>";
+    document.querySelector('#cart-total').textContent = "$0.00";
     return;
   }
 
-  // Build HTML for each item
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector('.product-list').innerHTML = htmlItems.join('');
+
+  // Calculate and display total
+  const total = calculateCartTotal(cartItems);
+  document.querySelector('#cart-total').textContent = `$${total.toFixed(2)}`;
 }
 
 function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
+  return `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
       <img src="${item.Image}" alt="${item.Name}" />
     </a>
@@ -27,9 +29,13 @@ function cartItemTemplate(item) {
     <p class="cart-card__quantity">qty: ${item.quantity || 1}</p>
     <p class="cart-card__price">$${item.FinalPrice}</p>
   </li>`;
-
-  return newItem;
 }
 
-// Render cart contents on page load
+function calculateCartTotal(cartItems) {
+  return cartItems.reduce((sum, item) => {
+    const qty = item.quantity || 1;
+    return sum + item.FinalPrice * qty;
+  }, 0);
+}
+
 renderCartContents();
