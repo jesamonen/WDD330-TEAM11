@@ -13,40 +13,41 @@ export default class ProductDetails {
 
         // Render product details into placeholders
         this.renderProductDetails();
-
-        // Attach Add to Cart event
-        document.getElementById('addToCart')
-            .addEventListener('click', this.addProductToCart.bind(this));
     }
 
-    // ✅ New method so product.js can access the product object
+    // Method to expose the loaded product object to product.js
     getProduct() {
         return this.product;
     }
 
-    addProductToCart() {
-        // Get existing cart or default to empty array
-        let cartItems = getLocalStorage('so-cart') || [];
-
-        // Push current product into cart
-        cartItems.push(this.product);
-
-        // Save back to local storage
-        setLocalStorage('so-cart', cartItems);
-
-        console.log(`${this.product.Name} added to cart`);
-    }
-
     renderProductDetails() {
-        // Fill placeholders in product page
-        document.querySelector('.productBrand').textContent = this.product.Brand;
-        document.querySelector('.productName').textContent = this.product.Name;
-        document.querySelector('.productImage').src = this.product.Image;
+        if (!this.product) {
+            console.error('No product found for ID:', this.productId);
+            return;
+        }
+
+        // 1. Access Brand.Name (Brand is a nested object in JSON)
+        document.querySelector('.productBrand').textContent = this.product.Brand.Name;
+
+        // 2. Prevent double brand names in the title
+        document.querySelector('.productName').textContent = this.product.NameWithoutBrand || this.product.Name;
+
+        // 3. Set image src and alt attributes
+        const img = document.querySelector('.productImage');
+        img.src = this.product.Image;
+        img.alt = this.product.NameWithoutBrand || this.product.Name;
+
+        // 4. Set price and primary color
         document.querySelector('.productPrice').textContent = `$${this.product.FinalPrice}`;
         document.querySelector('.productColor').textContent = this.product.Colors[0].ColorName;
-        document.querySelector('.productDescription').textContent = this.product.Description;
 
-        // Add product ID to button for reference
-        document.getElementById('addToCart').dataset.id = this.product.Id;
+        // 5. Use innerHTML to parse HTML tags inside DescriptionHtmlSimple
+        document.querySelector('.productDescription').innerHTML = this.product.DescriptionHtmlSimple;
+
+        // 6. Set dataset ID on the button
+        const addBtn = document.getElementById('addToCart');
+        if (addBtn) {
+            addBtn.dataset.id = this.product.Id;
+        }
     }
 }

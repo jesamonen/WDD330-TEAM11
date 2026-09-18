@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "Boilerplate for WDD 330 SleepOutside project",
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "build": "vite build --emptyOutDir",
     "preview": "vite preview",
