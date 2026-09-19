@@ -9,7 +9,16 @@ function productCardTemplate(product) {
         />
         <h3 class="card__brand">${product.Brand.Name}</h3>
         <h2 class="card__name">${product.Name}</h2>
-        <p class="product-card__price">$${product.FinalPrice}</p>
+       <p class="product-card__price">$${product.FinalPrice}</p>
+        ${
+        product.FinalPrice < product.SuggestedRetailPrice
+            ? `<p class="product-card__discount">
+                Save $${(
+                product.SuggestedRetailPrice - product.FinalPrice
+                ).toFixed(2)}
+            </p>`
+            : ""
+        }
       </a>
     </li>
   `;
