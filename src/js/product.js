@@ -1,41 +1,29 @@
-import { getParam, getLocalStorage, setLocalStorage } from './utils.mjs';
-import ProductData from './ProductData.mjs';
-import ProductDetails from './ProductDetails.mjs';
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import ProductData from "./ProductData.mjs";
 
-const productId = getParam('product');
-const category = getParam('category') || 'tents';
+const dataSource = new ProductData("tents");
 
-const dataSource = new ProductData(category);
-const product = new ProductDetails(productId, dataSource);
+function addProductToCart(product) {
+  // 1. Get existing cart contents or initialize an empty array if empty/null
+  let cart = getLocalStorage("so-cart");
+  if (!Array.isArray(cart)) {
+    cart = [];
+  }
 
-// Save item to cart in local storage
-function addToCart(productData) {
-    let cart = getLocalStorage('so-cart') || [];
-    
-    // Maintain quantity tracking
-    const itemToSave = { ...productData, quantity: 1 };
-    
-    cart.push(itemToSave);
-    setLocalStorage('so-cart', cart);
-    console.log(`${itemToSave.Name} added to cart`);
+  // 2. Use push to add the new product to the array
+  cart.push(product);
+
+  // 3. Save updated array back to localStorage
+  setLocalStorage("so-cart", cart);
 }
 
-// Initialize page and attach click listener after data fetches
-async function initPage() {
-    if (!productId) {
-        console.error('No product parameter found in URL. Try appending ?product=880RR');
-        return;
-    }
-
-    await product.init();
-
-    const addBtn = document.querySelector('#addToCart');
-    if (addBtn) {
-        addBtn.addEventListener('click', () => {
-            const productData = product.getProduct();
-            addToCart(productData);
-        });
-    }
+// Add to cart button event handler
+async function addToCartHandler(e) {
+  const product = await dataSource.findProductById(e.target.dataset.id);
+  addProductToCart(product);
 }
 
-initPage();
+// Add listener to Add to Cart button
+document
+  .getElementById("addToCart")
+  .addEventListener("click", addToCartHandler);
