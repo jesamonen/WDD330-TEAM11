@@ -19,6 +19,7 @@ function renderCartContents() {
     cartTotal.textContent = `Total: $${total.toFixed(2)}`;
     cartFooter.classList.remove("hide");
   } else {
+    cartTotal.textContent = "Total: $0.00";
     cartFooter.classList.add("hide");
   }
     addRemoveListeners();
@@ -28,7 +29,7 @@ function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+     src="${item.Images.PrimaryMedium}"
       alt="${item.Name}"
     />
   </a>

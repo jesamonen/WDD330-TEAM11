@@ -1,22 +1,23 @@
 import { renderListWithTemplate } from "./utils.mjs";
+
 function productCardTemplate(product) {
   return `
     <li class="product-card">
-      <a href="product_pages/?product=${product.Id}">
+      <a href="../product_pages/?product=${product.Id}">
         <img
-          src="${product.Image}"
+          src="${product.Images.PrimaryMedium}"
           alt="${product.Name}"
         />
         <h3 class="card__brand">${product.Brand.Name}</h3>
         <h2 class="card__name">${product.Name}</h2>
-       <p class="product-card__price">$${product.FinalPrice}</p>
+        <p class="product-card__price">$${product.FinalPrice}</p>
         ${
-        product.FinalPrice < product.SuggestedRetailPrice
+          product.FinalPrice < product.SuggestedRetailPrice
             ? `<p class="product-card__discount">
                 Save $${(
-                product.SuggestedRetailPrice - product.FinalPrice
+                  product.SuggestedRetailPrice - product.FinalPrice
                 ).toFixed(2)}
-            </p>`
+              </p>`
             : ""
         }
       </a>
@@ -31,23 +32,19 @@ export default class ProductList {
     this.listElement = listElement;
   }
 
-async init() {
-  const list = await this.dataSource.getData();
+  async init() {
+    const list = await this.dataSource.getData(this.category);
 
-  const productsWithDetails = list.filter((product) =>
-    ["880RR", "985RF", "985PR", "344YJ"].includes(product.Id),
-  );
+    this.renderList(list);
+  }
 
-  this.renderList(productsWithDetails);
-}
-
- renderList(list) {
-  renderListWithTemplate(
-    productCardTemplate,
-    this.listElement,
-    list,
-    "afterbegin",
-    true,
-  );
-}
+  renderList(list) {
+    renderListWithTemplate(
+      productCardTemplate,
+      this.listElement,
+      list,
+      "afterbegin",
+      true,
+    );
+  }
 }

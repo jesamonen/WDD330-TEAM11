@@ -241,6 +241,7 @@ button {
   grid-column: 3;
 }
 
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
@@ -260,4 +261,20 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.category-list li {
+  margin: 0;
+}
+
+.category-list a {
+  display: block;
+  padding: 1rem;
 }
