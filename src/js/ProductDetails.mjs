@@ -1,3 +1,4 @@
+
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 export default class ProductDetails {
@@ -9,59 +10,102 @@ export default class ProductDetails {
 
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
+
     this.renderProductDetails();
-  }
-
-  addProductToCart() {
-  let cart = getLocalStorage("so-cart");
-
-  if (!Array.isArray(cart)) {
-    cart = [];
-  }
-
-  cart.push(this.product);
-  setLocalStorage("so-cart", cart);
-
-  const cartCount = document.querySelector(".cart-count");
-
-  if (cartCount) {
-    cartCount.textContent = cart.length;
-  }
-}
-
-  renderProductDetails() {
-    document.querySelector(".product-detail h3").textContent =
-      this.product.Brand.Name;
-
-    document.querySelector(".product-detail h2").textContent =
-      this.product.Name;
-
-    const image = document.querySelector(".product-detail img");
-
-    image.src = this.product.Images.PrimaryLarge;
-    image.alt = this.product.Name;
-
-    document.querySelector(".product-card__price").textContent =
-      `$${this.product.FinalPrice}`;
-
-    const discount = document.querySelector(".product-detail__discount");
-
-    if (this.product.FinalPrice < this.product.SuggestedRetailPrice) {
-      discount.textContent = `Save $${(
-        this.product.SuggestedRetailPrice - this.product.FinalPrice
-      ).toFixed(2)}`;
-    } else {
-      discount.textContent = "";
-    }
-
-    document.querySelector(".product__color").textContent =
-      this.product.Colors[0].ColorName;
-
-    document.querySelector(".product__description").textContent =
-      this.product.Description;
 
     document
       .getElementById("addToCart")
-      .addEventListener("click", () => this.addProductToCart());
+      .addEventListener("click", this.addToCart.bind(this));
+  }
+
+  addToCart() {
+    let cart = getLocalStorage("so-cart");
+
+    if (!Array.isArray(cart)) {
+      cart = [];
+    }
+
+    const existingProduct = cart.find(
+      (item) => String(item.Id) === String(this.product.Id),
+    );
+
+    if (existingProduct) {
+      existingProduct.quantity =
+        (existingProduct.quantity || 1) + 1;
+    } else {
+      cart.push({
+        ...this.product,
+        quantity: 1,
+      });
+    }
+
+    setLocalStorage("so-cart", cart);
+  }
+
+  renderProductDetails() {
+    const product = this.product;
+
+    const productBrand = document.querySelector(
+      ".product-detail h3",
+    );
+
+    const productName = document.querySelector(
+      ".product-detail h2",
+    );
+
+    const productImage = document.querySelector(
+      ".product-detail img",
+    );
+
+    const productPrice = document.querySelector(
+      ".product-card__price",
+    );
+
+    const productDiscount = document.querySelector(
+      ".product-detail__discount",
+    );
+
+    const productColor = document.querySelector(
+      ".product__color",
+    );
+
+    const productDescription = document.querySelector(
+      ".product__description",
+    );
+
+    // Brand
+    productBrand.textContent = product.Brand.Name;
+
+    // Product name
+    productName.textContent = product.Name;
+
+    // Product image
+    productImage.src = product.Images.PrimaryMedium;
+    productImage.alt = product.Name;
+
+    // Product price
+    productPrice.textContent = `$${product.FinalPrice}`;
+
+    // Discount
+    if (product.FinalPrice < product.SuggestedRetailPrice) {
+      const savings =
+        product.SuggestedRetailPrice - product.FinalPrice;
+
+      productDiscount.textContent = `Save $${savings.toFixed(2)}`;
+    } else {
+      productDiscount.textContent = "";
+    }
+
+    // Color
+    if (product.Colors && product.Colors.length > 0) {
+      productColor.textContent =
+        `Color: ${product.Colors[0].ColorName}`;
+    } else {
+      productColor.textContent = "";
+    }
+
+    // Description
+    productDescription.textContent = product.Description;
   }
 }
+

@@ -1,3 +1,4 @@
+
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 export default class ProductDetails {
@@ -11,27 +12,46 @@ export default class ProductDetails {
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails();
 
-    // Bind 'this' context so the callback can access this.product and this.addToCart
     document
       .getElementById("addToCart")
       .addEventListener("click", this.addToCart.bind(this));
   }
 
-  addToCart() {
-    // 1. Read existing cart or fallback to empty array
-    let cart = getLocalStorage("so-cart");
-    if (!Array.isArray(cart)) {
-      cart = [];
-    }
+  
+addToCart() {
+  let cart = getLocalStorage("so-cart");
 
-    // 2. Push product to the array
-    cart.push(this.product);
-
-    // 3. Persist updated array back to localStorage
-    setLocalStorage("so-cart", cart);
+  if (!Array.isArray(cart)) {
+    cart = [];
   }
+
+  // Look for the same product already in the cart.
+  // String() makes the comparison work whether the ID is
+  // stored as a number or a string.
+  const existingProduct = cart.find(
+    (item) => String(item.Id) === String(this.product.Id),
+  );
+
+  if (existingProduct) {
+    // Product already exists: increase its quantity.
+    existingProduct.quantity =
+      (existingProduct.quantity || 1) + 1;
+  } else {
+    // Product is new: add it with quantity 1.
+    cart.push({
+      ...this.product,
+      quantity: 1,
+    });
+  }
+   // Save the updated cart
+
+  setLocalStorage("so-cart", cart);
+}
+
+ 
 
   renderProductDetails() {
     // Rendering logic...
   }
 }
+
