@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Sleep Outside | Order Confirmation</title>
+
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+
+  <body>
+    <header id="main-header"></header>
+
+    <main class="divider">
+      <section class="checkout-success">
+        <h2>Thank you for your order!</h2>
+
+        <p>
+          Your order number is
+          <span id="order-number" class="order-number"></span>.
+        </p>
+
+        <p>You will receive a confirmation email shortly.</p>
+      </section>
+    </main>
+
+    <footer id="main-footer"></footer>
+
+    <script type="module" src="../js/main.js"></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const orderNumber = params.get("orderId") || "not available";
+      document.querySelector("#order-number").textContent = orderNumber;
+    </script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-import { renderListWithTemplate } from "./utils.mjs";
+import { renderListWithTemplate } from './utils.mjs';
 
 function productCardTemplate(product) {
   return `
@@ -18,7 +18,7 @@ function productCardTemplate(product) {
                   product.SuggestedRetailPrice - product.FinalPrice
                 ).toFixed(2)}
               </p>`
-            : ""
+            : ''
         }
       </a>
     </li>
@@ -30,12 +30,42 @@ export default class ProductList {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.list = [];
   }
 
   async init() {
-    const list = await this.dataSource.getData(this.category);
+    this.list = await this.dataSource.getData(this.category);
+    this.renderList(this.list);
 
-    this.renderList(list);
+    const sortSelect = document.querySelector('#sort-by');
+
+    if (sortSelect) {
+      sortSelect.addEventListener('change', () => {
+        this.renderList(this.sortList(this.list, sortSelect.value));
+      });
+    }
+  }
+
+  // keep only featured items, falling back to the first four products
+  filterList(list) {
+    const featured = list.filter((item) => item.Featured === true);
+
+    return featured.length > 0 ? featured : list.slice(0, 4);
+  }
+
+  // sort a copy of the list by name or price
+  sortList(list, sortBy) {
+    const sorted = [...list];
+
+    if (sortBy === 'name') {
+      sorted.sort((a, b) => a.Name.localeCompare(b.Name));
+    } else if (sortBy === 'price') {
+      sorted.sort(
+        (a, b) => Number(a.FinalPrice) - Number(b.FinalPrice),
+      );
+    }
+
+    return sorted;
   }
 
   renderList(list) {
@@ -43,7 +73,7 @@ export default class ProductList {
       productCardTemplate,
       this.listElement,
       list,
-      "afterbegin",
+      'afterbegin',
       true,
     );
   }

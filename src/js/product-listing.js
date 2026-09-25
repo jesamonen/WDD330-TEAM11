@@ -1,12 +1,12 @@
-import ProductData from "./ProductData.mjs";
-import ProductList from "./ProductList.mjs";
-import { getParam } from "./utils.mjs";
+import ExternalServices from './ExternalServices.mjs';
+import ProductList from './ProductList.mjs';
+import { getParam } from './utils.mjs';
 
-const category = getParam("category");
+const category = getParam('category');
 
-const dataSource = new ProductData();
+const dataSource = new ExternalServices();
 
-const listElement = document.querySelector(".product-list");
+const listElement = document.querySelector('.product-list');
 
 const productList = new ProductList(
   category,
@@ -16,39 +16,39 @@ const productList = new ProductList(
 
 productList.init();
 
-const title = document.querySelector(".products h2");
+const title = document.querySelector('.products h2');
 
 const categoryName = category
-  .split("-")
+  .split('-')
   .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-  .join(" ");
+  .join(' ');
 
 title.textContent = `Top Products: ${categoryName}`;
 
-const searchInput = document.querySelector("#search");
-const searchButton = document.querySelector("#searchButton");
+const searchInput = document.querySelector('#search');
+const searchButton = document.querySelector('#searchButton');
 
-searchButton.addEventListener("click", () => {
+searchButton.addEventListener('click', () => {
   const searchTerm = searchInput.value.toLowerCase().trim();
 
-  const cards = document.querySelectorAll(".product-card");
+  const cards = document.querySelectorAll('.product-card');
 
   cards.forEach((card) => {
     const productName = card
-      .querySelector(".card__name")
+      .querySelector('.card__name')
       .textContent.toLowerCase();
 
     const brandName = card
-      .querySelector(".card__brand")
+      .querySelector('.card__brand')
       .textContent.toLowerCase();
 
     if (
       productName.includes(searchTerm) ||
       brandName.includes(searchTerm)
     ) {
-      card.style.display = "";
+      card.style.display = '';
     } else {
-      card.style.display = "none";
+      card.style.display = 'none';
     }
   });
 });

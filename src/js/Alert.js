@@ -5,9 +5,9 @@ export default class Alert {
   }
 
   render(parent) {
-    const alertElement = document.createElement("div");
+    const alertElement = document.createElement('div');
 
-    alertElement.classList.add("alert", `alert-${this.type}`);
+    alertElement.classList.add('alert', `alert-${this.type}`);
 
     alertElement.textContent = this.message;
 

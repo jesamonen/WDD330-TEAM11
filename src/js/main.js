@@ -1,34 +1,51 @@
-import Alert from "./Alert.js";
+import Alert from './Alert.js';
+import ExternalServices from './ExternalServices.mjs';
+import ProductList from './ProductList.mjs';
+import { loadHeaderFooter } from './utils.mjs';
 
-import { getLocalStorage } from "./utils.mjs";
+loadHeaderFooter();
 
+async function loadTopProducts() {
+  const listElement = document.querySelector('#top-products');
 
-const cartItems = getLocalStorage("so-cart") || [];
-const cartCount = document.querySelector(".cart-count");
+  if (!listElement) {
+    return;
+  }
 
-cartCount.textContent = cartItems.length;
+  const dataSource = new ExternalServices();
+  const productList = new ProductList('tents', dataSource, listElement);
+
+  try {
+    const list = await dataSource.getData('tents');
+    productList.renderList(productList.filterList(list));
+  } catch (error) {
+    // homepage featured section is optional; skip silently if it fails
+  }
+}
 
 async function loadAlerts() {
   try {
-    const response = await fetch("/json/alerts.json");
+    const response = await fetch('/json/alerts.json');
 
     if (!response.ok) {
-      throw new Error("Could not load alerts");
+      throw new Error('Could not load alerts');
     }
 
     const alerts = await response.json();
+    const alertContainer = document.querySelector('.alert-list');
 
-    const alertContainer = document.querySelector(".alert-list");
-
-    if (!alertContainer) return;
+    if (!alertContainer) {
+      return;
+    }
 
     alerts.forEach((alertData) => {
       const alert = new Alert(alertData);
       alert.render(alertContainer);
     });
   } catch (error) {
-    console.log(error.message);
+    // alerts are decorative; failing to load them is not fatal
   }
 }
 
+loadTopProducts();
 loadAlerts();
