@@ -23,6 +23,9 @@ function productCardTemplate(product) {
             : ""
         }
       </a>
+      <button type="button" class="quick-view-button" data-product-id="${product.Id}">
+        Quick view
+      </button>
     </li>
   `;
 }

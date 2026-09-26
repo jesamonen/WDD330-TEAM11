@@ -202,6 +202,47 @@ button {
   font-size: 1em;
 }
 
+.quick-view-button {
+  display: block;
+  margin: 0.75rem auto 0;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.quick-view {
+  width: min(90vw, 760px);
+  max-height: 85vh;
+  padding: 1.5rem;
+  border: 1px solid var(--light-grey);
+}
+
+.quick-view::backdrop {
+  background: rgb(0 0 0 / 60%);
+}
+
+.quick-view__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.quick-view__image {
+  display: block;
+  width: min(100%, 320px);
+  margin: 0 auto 1rem;
+}
+
+.quick-view__details > * {
+  margin: 0.5rem 0;
+}
+
+.quick-view__product-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
 /* End product list card */
 
 .product-detail {
