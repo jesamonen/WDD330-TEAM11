@@ -55,6 +55,8 @@ export default class ProductList {
 
     breadcrumbs.textContent =
       "Home → " + categoryName + " → (" + list.length + " items)";
+
+      return list;
   }
 
   renderList(list) {

@@ -261,3 +261,28 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+.category-list {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: space-between !important;
+  align-items: center;
+  width: 100%;
+  margin: 5px 0 !important;
+  padding: 0;
+  list-style: none;
+}
+
+.category-list li {
+  display: block;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.category-list a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  color: var(--dark-grey);
+}
