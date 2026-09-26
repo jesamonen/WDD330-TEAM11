@@ -136,9 +136,9 @@
     <script type="module" src="../js/main.js"></script>
    <script type="module">
       import CheckoutProcess from "../js/checkoutProcess.mjs";
-      import ExternalServices from "../js/ExternalServices.mjs";
+   
       const checkout = new CheckoutProcess("so-cart", ".checkout-summary");
-      const externalServices = new ExternalServices();
+     
     
       checkout.init();
       const zipInput = document.querySelector('input[name="zip"]');
@@ -149,22 +149,13 @@
       });
 
       const form = document.querySelector("#checkout-form");
-
      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        const order = checkout.checkout(form);
+       event.preventDefault();
 
         try {
-          const response = await externalServices.checkout(order);
-          const message = document.querySelector("#checkout-message");
-          message.textContent = `Order placed successfully! Your order number is ${response.orderId}.`;
+          await checkout.checkout(form);
         } catch (error) {
           console.error("Checkout failed:", error);
-
-          const message = document.querySelector("#checkout-message");
-          message.textContent =
-            "Sorry, we could not place your order. Please check your information and try again.";
         }
       });
 </script>
