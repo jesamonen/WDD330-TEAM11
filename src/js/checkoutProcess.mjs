@@ -1,10 +1,11 @@
-
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, alertMessage } from "./utils.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 
 export default class CheckoutProcess {
-  constructor(key, outputSelector) {
-    this.key = key;
-    this.outputSelector = outputSelector;
+ constructor(key, outputSelector) {
+  this.key = key;
+  this.outputSelector = outputSelector;
+  this.externalServices = new ExternalServices();
     this.list = [];
     this.itemTotal = 0;
     this.shipping = 0;
@@ -78,9 +79,10 @@ packageItems() {
     quantity: item.quantity || 1,
   }));
 }
-checkout(form) {
-  const formData = new FormData(form);
 
+
+async checkout(form) {
+  const formData = new FormData(form);
   const data = Object.fromEntries(formData);
 
   data.orderDate = new Date().toISOString();
@@ -89,7 +91,21 @@ checkout(form) {
   data.shipping = this.shipping;
   data.tax = this.tax;
 
-  return data;
+  try {
+  const response = await this.externalServices.checkout(data);
+  localStorage.removeItem(this.key);
+  window.location.href = "./success.html";
+  return response;
+} catch (error) {
+  console.error("Checkout failed:", error);
+  const message =
+  error.message?.cardNumber ||
+  "Sorry, we could not place your order. Please check your information and try again.";
+
+ alertMessage(message);
+  throw error;
 }
 }
+}
+
 

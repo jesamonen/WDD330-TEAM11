@@ -42,3 +42,26 @@ export function renderListWithTemplate(
   const html = list.map(templateFn).join("");
   parentElement.insertAdjacentHTML(position, html);
 }
+
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+
+  alert.innerHTML = `
+    <p>${message}</p>
+    <button type="button">X</button>
+  `;
+
+  alert.addEventListener("click", function (event) {
+    if (event.target.tagName === "BUTTON") {
+      this.remove();
+    }
+  });
+
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+}
