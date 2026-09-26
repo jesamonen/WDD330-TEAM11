@@ -161,6 +161,7 @@ button {
   flex-flow: row wrap;
   list-style-type: none;
   justify-content: center;
+  margin: 15px;
 }
 
 .product-list a {
@@ -265,16 +266,26 @@ footer {
 
 
 .category-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: space-between !important;
+  align-items: center;
+  width: 100%;
+  margin: 15px 0 !important;
+  padding: 0;
+  list-style: none;
 }
 
 .category-list li {
+  display: block;
+  flex: 0 0 auto;
   margin: 0;
 }
 
 .category-list a {
   display: block;
-  padding: 1rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  color: var(--dark-grey);
 }

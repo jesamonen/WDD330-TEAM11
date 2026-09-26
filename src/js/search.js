@@ -1,11 +1,16 @@
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 
-const dataSource = new ProductData();
+const dataSource = new ExternalServices();
 
-const searchForm = document.querySelector("#navbar-search");
-const searchInput = document.querySelector("#navbar-search-input");
+function setupSearch() {
+  const searchForm = document.querySelector("#navbar-search");
+  const searchInput = document.querySelector("#navbar-search-input");
 
-if (searchForm && searchInput) {
+  if (!searchForm || !searchInput) {
+    console.log("Search form not found.");
+    return;
+  }
+
   searchForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -67,3 +72,9 @@ if (searchForm && searchInput) {
     }
   });
 }
+
+// The header is loaded by header.js
+document.addEventListener("headerLoaded", setupSearch);
+
+
+setupSearch();
