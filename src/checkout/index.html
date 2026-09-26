@@ -46,12 +46,24 @@
   <form id="checkout-form">
     <label>
       First Name
-      <input type="text" name="fname" required />
+      <input
+        type="text"
+        name="fname"
+        required
+        minlength="2"
+        title="Please enter your first name"
+      />
     </label>
 
     <label>
       Last Name
-      <input type="text" name="lname" required />
+        <input
+          type="text"
+          name="lname"
+          required
+          minlength="2"
+          title="Please enter your last name"
+        />
     </label>
 
     <label>
@@ -71,25 +83,50 @@
 
     <label>
       Zip Code
-      <input type="text" name="zip" required />
+      <input
+        type="text"
+        name="zip"
+        required
+        pattern="[0-9]{5}"
+        title="Please enter a 5-digit ZIP code"
+      />
     </label>
 
     <label>
       Credit Card Number
-      <input type="text" name="cardNumber" required />
+     <input
+        type="text"
+        name="cardNumber"
+        required
+        pattern="[0-9]{16}"
+        title="Please enter a 16-digit card number"
+      />
     </label>
 
     <label>
       Expiration Date
-      <input type="text" name="expiration" required />
+      <input
+        type="text"
+        name="expiration"
+        required
+        pattern="(0[1-9]|1[0-2])\/([0-9]{2})"
+        title="Please enter expiration as MM/YY"
+      />
     </label>
 
     <label>
       Security Code
-      <input type="text" name="code" required />
+      <input
+        type="text"
+        name="code"
+        required
+        pattern="[0-9]{3}"
+        title="Please enter a 3-digit security code"
+      />
     </label>
 
     <button type="submit">Checkout</button>
+    <p id="checkout-message"></p>
 </form>
   </section>
 </main>
@@ -113,15 +150,23 @@
 
       const form = document.querySelector("#checkout-form");
 
-      form.addEventListener("submit", async (event) => {
-      event.preventDefault();
+     form.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-      const order = checkout.checkout(form);
+        const order = checkout.checkout(form);
 
-      const response = await externalServices.checkout(order);
+        try {
+          const response = await externalServices.checkout(order);
+          const message = document.querySelector("#checkout-message");
+          message.textContent = `Order placed successfully! Your order number is ${response.orderId}.`;
+        } catch (error) {
+          console.error("Checkout failed:", error);
 
-      console.log(response);
-    });
+          const message = document.querySelector("#checkout-message");
+          message.textContent =
+            "Sorry, we could not place your order. Please check your information and try again.";
+        }
+      });
 </script>
     
     <script type="module" src="../js/footer.js"></script>
