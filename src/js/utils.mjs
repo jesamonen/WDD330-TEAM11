@@ -7,7 +7,7 @@ export function qs(selector, parent = document) {
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
+  try { return JSON.parse(localStorage.getItem(key)); } catch { return null; }
 }
 // save data to local storage
 export function setLocalStorage(key, data) {
@@ -42,3 +42,30 @@ export function renderListWithTemplate(
   const html = list.map(templateFn).join("");
   parentElement.insertAdjacentHTML(position, html);
 }
+
+export function getCartCount() {
+  const cart = getLocalStorage("so-cart");
+  return Array.isArray(cart) ? cart.reduce((sum, item) => sum + (Number(item.quantity) || 1), 0) : 0;
+}
+
+export async function loadHeaderFooter() {
+  const [header, footer] = await Promise.all([
+    fetch("/partials/header.html").then((response) => response.text()),
+    fetch("/partials/footer.html").then((response) => response.text()),
+  ]);
+  const headerTarget = document.querySelector("[data-site-header]");
+  const footerTarget = document.querySelector("[data-site-footer]");
+  if (headerTarget) headerTarget.outerHTML = header;
+  if (footerTarget) footerTarget.outerHTML = footer;
+  updateCartCount();
+}
+
+export function updateCartCount() {
+  document.querySelectorAll(".cart-count").forEach((badge) => {
+    badge.textContent = getCartCount();
+  });
+}
+
+window.addEventListener("storage", (event) => {
+  if (event.key === "so-cart") updateCartCount();
+});

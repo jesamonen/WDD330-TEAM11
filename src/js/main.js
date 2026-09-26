@@ -1,13 +1,5 @@
 import Alert from "./Alert.js";
 
-import { getLocalStorage } from "./utils.mjs";
-
-
-const cartItems = getLocalStorage("so-cart") || [];
-const cartCount = document.querySelector(".cart-count");
-
-cartCount.textContent = cartItems.length;
-
 async function loadAlerts() {
   try {
     const response = await fetch("/json/alerts.json");

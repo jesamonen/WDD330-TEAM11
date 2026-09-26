@@ -131,6 +131,17 @@ button {
   fill: gray;
 }
 
+.cart-count { display: inline-grid; place-items: center; min-width: 1.4rem; height: 1.4rem; margin-right: .25rem; border-radius: 50%; background: var(--tertiary-color); color: white; font-size: .75rem; }
+.breadcrumbs { padding: 1rem; }
+.product-search, #checkout-form { display: grid; gap: .75rem; margin: 1rem 0; }
+#checkout-form fieldset { display: grid; gap: .7rem; padding: 1rem; margin: .5rem 0; }
+#checkout-form label { display: grid; gap: .25rem; }
+#checkout-form input { padding: .55rem; font: inherit; }
+.order-totals { padding: 1rem; background: #f4f4f4; }
+.notice.error { color: #9d1c1c; }
+.cart-card__remove { background: #8a1c1c; padding: .4rem .7rem; }
+.hide { display: none; }
+
 /* End cart icon styles */
 
 .mission {

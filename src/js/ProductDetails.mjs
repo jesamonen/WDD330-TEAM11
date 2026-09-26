@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -8,8 +8,14 @@ export default class ProductDetails {
   }
 
   async init() {
-    this.product = await this.dataSource.findProductById(this.productId);
-    this.renderProductDetails();
+    try {
+      this.product = await this.dataSource.findProductById(this.productId);
+      this.renderProductDetails();
+    } catch (error) {
+      const detail = document.querySelector(".product-detail");
+      if (detail) detail.innerHTML = '<p role="alert">Product details could not be loaded. Please try again.</p>';
+      console.error(error);
+    }
   }
 
   addProductToCart() {
@@ -19,14 +25,11 @@ export default class ProductDetails {
     cart = [];
   }
 
-  cart.push(this.product);
+  const existing = cart.find((item) => String(item.Id) === String(this.product.Id));
+  if (existing) existing.quantity = (Number(existing.quantity) || 1) + 1;
+  else cart.push({ ...this.product, quantity: 1 });
   setLocalStorage("so-cart", cart);
-
-  const cartCount = document.querySelector(".cart-count");
-
-  if (cartCount) {
-    cartCount.textContent = cart.length;
-  }
+  updateCartCount();
 }
 
   renderProductDetails() {

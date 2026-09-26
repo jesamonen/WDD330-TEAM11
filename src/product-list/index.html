@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sleep Outside | Products</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div data-site-header></div>
+    <main class="divider">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"></nav>
+      <section class="products">
+        <h2>Products</h2>
+        <div class="product-search">
+          <label for="search">Search products</label><input type="search" id="search" placeholder="Search products..." />
+          <button type="button" id="searchButton">Search</button>
+          <label for="sort">Sort products</label>
+          <select id="sort"><option value="default">Featured</option><option value="name">Name</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option></select>
+        </div>
+        <ul class="product-list"></ul>
+      </section>
+    </main>
+    <div data-site-footer></div>
+    <script type="module" src="/js/product-listing.js"></script>
+    <script type="module" src="/js/site.js"></script>
+  </body>
+</html>
