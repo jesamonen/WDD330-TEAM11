@@ -352,3 +352,186 @@ footer {
   padding: 1rem;
   text-align: center;
 }
+
+/* ==============================
+   Quick View
+   ============================== */
+
+.product-card {
+  position: relative;
+}
+
+.quick-view-button {
+  display: block;
+  width: calc(100% - 2rem);
+  margin: 0.75rem auto 1rem;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #222;
+  color: #fff;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.quick-view-button:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+.quick-view-button:focus {
+  outline: 3px solid #4d90fe;
+  outline-offset: 2px;
+}
+
+/* Modal background */
+
+.quick-view-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem;
+
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Modal box */
+
+.quick-view-modal__content {
+  position: relative;
+
+  width: min(900px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+
+  padding: 2rem;
+
+  background: #fff;
+  border-radius: 10px;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Close button */
+
+.quick-view-modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #222;
+  color: #fff;
+
+  font-size: 1.5rem;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.quick-view-modal__close:hover {
+  opacity: 0.8;
+}
+
+/* Product image */
+
+.quick-view__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quick-view__image img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+/* Product information */
+
+.quick-view__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.quick-view__brand {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.quick-view__name {
+  margin-bottom: 1rem;
+}
+
+.quick-view__price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.quick-view__discount {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.quick-view__color {
+  margin-bottom: 1rem;
+}
+
+.quick-view__description {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.quick-view__details-link {
+  display: inline-block;
+  width: fit-content;
+
+  padding: 0.75rem 1rem;
+
+  border-radius: 6px;
+
+  text-decoration: none;
+  font-weight: 600;
+  background: #222;
+  color: #fff;
+}
+
+.quick-view__details-link:hover {
+  opacity: 0.85;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .quick-view-modal__content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  .quick-view__image img {
+    max-height: 300px;
+  }
+
+  .quick-view__details {
+    justify-content: flex-start;
+  }
+}
