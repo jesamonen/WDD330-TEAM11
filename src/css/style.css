@@ -743,3 +743,30 @@ footer {
 .register-cta__later:hover {
   color: #222;
 }
+
+/* Cart animation when a product is added */
+.cart-bounce {
+  animation: cartBounce 0.6s ease;
+}
+
+@keyframes cartBounce {
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.2) rotate(-5deg);
+  }
+
+  50% {
+    transform: scale(0.9) rotate(5deg);
+  }
+
+  70% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}

@@ -40,6 +40,23 @@ export default class ProductDetails {
     }
 
     setLocalStorage("so-cart", cart);
+    this.animateCartIcon();
+  }
+    animateCartIcon() {
+    const cartIcon = document.querySelector(".cart");
+
+    if (!cartIcon) return;
+
+    cartIcon.classList.remove("cart-bounce");
+
+    // Force the browser to restart the animation
+    void cartIcon.offsetWidth;
+
+    cartIcon.classList.add("cart-bounce");
+
+    setTimeout(() => {
+      cartIcon.classList.remove("cart-bounce");
+    }, 600);
   }
 
   renderProductDetails() {
