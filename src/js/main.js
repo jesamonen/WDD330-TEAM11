@@ -1,5 +1,7 @@
+import "./register-cta.js";
 import Alert from "./Alert.js";
 import { getLocalStorage } from "./utils.mjs";
+
 
 function updateCartCount() {
   const cartItems = getLocalStorage("so-cart") || [];
@@ -38,3 +40,5 @@ async function loadAlerts() {
 }
 
 loadAlerts();
+
+

@@ -535,3 +535,185 @@ footer {
     justify-content: flex-start;
   }
 }
+
+
+/* Registration CTA promotion */
+.registration-cta {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgb(0 0 0 / 65%);
+}
+
+.registration-cta__content {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: 40px 28px;
+  border-radius: 14px;
+  background: #fff;
+  color: #222;
+  text-align: center;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 30%);
+}
+
+.registration-cta__eyebrow {
+  margin-bottom: 10px;
+  color: #527a35;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+}
+
+.registration-cta__content h2 {
+  margin: 0 0 16px;
+  font-size: 1.8rem;
+}
+
+.registration-cta__content p {
+  line-height: 1.6;
+}
+
+.registration-cta__close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  border: none;
+  background: transparent;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.registration-cta__button {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  background: #527a35;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.registration-cta__button:hover {
+  background: #3e6027;
+}
+
+.registration-cta__dismiss {
+  display: block;
+  margin: 14px auto 0;
+  border: none;
+  background: transparent;
+  color: #555;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .registration-cta__content {
+    padding: 36px 20px;
+  }
+
+  .registration-cta__content h2 {
+    font-size: 1.45rem;
+  }
+}
+
+.register-cta-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.6);
+}
+
+.register-cta {
+  position: relative;
+  width: 90%;
+  max-width: 450px;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.register-cta__close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  border: none;
+  background: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.register-cta__button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 12px 24px;
+  background: #527a35;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.register-cta__later {
+  display: block;
+  margin: 1rem auto 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.register-page {
+  max-width: 500px;
+  margin: 3rem auto;
+  padding: 2rem;
+}
+
+.register-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.register-form label {
+  display: grid;
+  gap: .5rem;
+}
+
+.register-form input {
+  padding: .8rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.register-form button {
+  padding: 1rem;
+  background: #527a35;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.register-cta__later {
+  display: block;
+  margin: 1rem auto 0;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: #555;
+  font-size: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.register-cta__later:hover {
+  color: #222;
+}
