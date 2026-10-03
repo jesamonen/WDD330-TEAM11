@@ -5,23 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Home</title>
     <link rel="stylesheet" href="/css/style.css" />
-   
   </head>
 
   <body>
     <header class="divider"></header>
+
     <main class="divider">
       <div class="alert-list"></div>
+
       <div class="hero">
         <img
           src="/images/banner-sm.jpg"
           srcset="images/banner-sm.jpg 500w, images/banner.jpg"
           alt="image of a high mountain lake"
         />
+
         <div class="logo logo--square">
           <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
           <div>Sleep<span class="highlight">Outside</span></div>
         </div>
+
         <div class="mission">
           <p>
             Our mission is to provide you with everything you need to sleep
@@ -30,44 +33,70 @@
         </div>
       </div>
 
-        <section class="products">
-      <h2>Shop by Category</h2>
+      <section class="products">
+        <h2>Shop by Category</h2>
 
-       <ul class="product-list category-list">
-  <li>
-    <a href="product_listing/index.html?category=tents">
-      Tents
-    </a>
-  </li>
+        <ul class="product-list category-list">
+          <li>
+            <a href="product_listing/index.html?category=tents">
+              Tents
+            </a>
+          </li>
 
-  <li>
-    <a href="product_listing/index.html?category=backpacks">
-      Backpacks
-    </a>
-  </li>
+          <li>
+            <a href="product_listing/index.html?category=backpacks">
+              Backpacks
+            </a>
+          </li>
 
-  <li>
-    <a href="product_listing/index.html?category=sleeping-bags">
-      Sleeping Bags
-    </a>
-  </li>
+          <li>
+            <a href="product_listing/index.html?category=sleeping-bags">
+              Sleeping Bags
+            </a>
+          </li>
 
-  <li>
-    <a href="product_listing/index.html?category=hammocks">
-      Hammocks
-    </a>
-  </li>
-</ul>
-    </section>
+          <li>
+            <a href="product_listing/index.html?category=hammocks">
+              Hammocks
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="newsletter">
+        <h2>Join Our Newsletter</h2>
+
+        <p>
+          Get outdoor tips, new product updates, special offers, and more
+          delivered to your inbox.
+        </p>
+
+        <form id="newsletter-form" class="newsletter-form">
+          <label for="newsletter-email">Email Address</label>
+
+          <div class="newsletter-form__group">
+            <input
+              type="email"
+              id="newsletter-email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+
+            <button type="submit">Subscribe</button>
+          </div>
+
+          <p id="newsletter-message" class="newsletter-message"></p>
+        </form>
+      </section>
     </main>
-  <script type="module" src="js/header.js"></script>
-  <script type="module" src="js/main.js"></script>
-  <script type="module" src="js/search.js"></script>
-  <script type="module" src="js/footer.js"></script>
-  
-       
+
+    <script type="module" src="js/header.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/search.js"></script>
+    <script type="module" src="js/footer.js"></script>
+    <script type="module" src="js/newsletter.js"></script>
+
     <footer></footer>
-
-
   </body>
 </html>
