@@ -76,7 +76,7 @@ export default class ShoppingCart {
       </div>
 
       <p class="cart-card__price">
-        $${item.FinalPrice}
+        $${(Number(item.FinalPrice) * Number(item.quantity || 1)).toFixed(2)}
       </p>
 
       <span class="cart-card__remove" data-id="${item.Id}">X</span>
@@ -85,7 +85,7 @@ export default class ShoppingCart {
 
   removeFromCart(id) {
     let cartItems = this.getCartItems();
-    cartItems = cartItems.filter((item) => item.Id !== id);
+    cartItems = cartItems.filter((item) => String(item.Id) !== String(id));
     setLocalStorage(this.key, cartItems);
     this.renderCartContents();
     updateCartCount();

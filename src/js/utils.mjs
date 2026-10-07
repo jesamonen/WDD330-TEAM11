@@ -66,9 +66,12 @@ export function addProductToCart(product) {
     cart = [];
   }
 
-  const existing = cart.find((item) => item.Id === product.Id);
+  const existingIndex = cart.findIndex(
+    (item) => String(item.Id) === String(product.Id),
+  );
 
-  if (existing) {
+  if (existingIndex > -1) {
+    const existing = cart[existingIndex];
     existing.quantity = (existing.quantity || 1) + 1;
   } else {
     const item = { ...product };
